@@ -13,16 +13,13 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        int startingRevenue = 0;
         int startingPageNumber = 1;
 
-        System.out.println(getRevenue(startingRevenue, startingPageNumber));
+        System.out.println(getRevenue(startingPageNumber));
 
     }
 
-    public static double getRevenue(double revenue, int pageNumber) throws Exception {
-
-        System.out.println("ON PAGE NUMBER:" + pageNumber);
+    public static double getRevenue(int pageNumber) throws Exception {
 
         URL shopifyURL;
         URLConnection shopifyConnection;
@@ -49,8 +46,10 @@ public class Main {
         Iterator orderIterator = orders.iterator();
 
         if (!orderIterator.hasNext()) {
-            return revenue;
+            return 0.0;
         }
+
+        double revenue = 0.0;
 
         while (orderIterator.hasNext()) {
 
@@ -60,6 +59,6 @@ public class Main {
             revenue += orderPrice;
         }
 
-        return getRevenue(revenue, ++pageNumber);
+        return revenue + getRevenue(++pageNumber);
     }
 }
